@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_05_20_041332) do
 
-  create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_041332) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "prompts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "prompts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "prompt", null: false
     t.integer "next_prompt"
     t.boolean "reported", default: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_041332) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "status", null: false
     t.string "closure_code"
     t.string "token", null: false

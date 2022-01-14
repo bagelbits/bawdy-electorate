@@ -5,7 +5,7 @@
 # This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
 # For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
 
-name: Erotic Corpse CI
+name: Bawdy Electorate CI
 
 on:
   push:
@@ -67,7 +67,7 @@ jobs:
           sudo service mysql start
       - name: Setup Runner Database
         run: |
-          mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS erotic_corpse_test;'
+          mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS bawdy_electorate_test;'
       - name: Setup test database
         env:
           RAILS_ENV: test
