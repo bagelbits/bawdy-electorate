@@ -4,29 +4,28 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 h1.title {
-  font-family: 'Homemade Apple', cursive;
+  font-family: 'Press Start 2P', cursive;
   text-align: center;
+  font-size: 1.8rem;
   padding-top: 25px;
   padding-bottom: 25px;
 }
 
 h2.subtitle {
-  font-family: 'Homemade Apple', cursive;
+  font-family: 'Press Start 2P', cursive;
   text-align: center;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   margin-top: -20px;
 }
 
 body {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   color: #33ff00;
   background-color: #282828;
-  font-size: 1.2rem;
-  @media only screen and (min-width: 1140px) {
-    font-size: 1rem;
-  }
+  font-size: 0.8rem;
 }
 
 div.deli-counter {
@@ -47,30 +46,16 @@ p.instructions {
   padding: 20px 0px 15px 0px;
   text-align: center;
   width: 80%;
-  @media only screen and (min-width: 1140px) {
-    width: 1100px;
-  }
   margin-left: 10%;
   margin-right: 10%;
-  @media only screen and (min-width: 1140px) {
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 p.prompt {
   border: thin solid #33ff00;
   margin-left: 10%;
   margin-right: 10%;
-  @media only screen and (min-width: 1140px) {
-    margin-left: auto;
-    margin-right: auto;
-  }
   border-radius: 10px;
   width: 80%;
-  @media only screen and (min-width: 1140px) {
-    width: 1100px;
-  }
   text-align: center;
   padding: 10px 20px 10px 20px;
   font-size: 25px;
@@ -78,66 +63,42 @@ p.prompt {
 }
 
 p.story {
-  border: thin solid black;
+  border: thin solid #33ff00;
   margin-left: 10%;
   margin-right: 10%;
-  @media only screen and (min-width: 1140px) {
-    margin-left: auto;
-    margin-right: auto;
-  }
   margin-bottom: 143px;
   border-radius: 10px;
-  @media only screen and (min-width: 1140px) {
-    width: 1100px;
-  }
+  width: 80%;
   text-align: center;
   padding: 10px 20px 10px 20px;
 }
 
 p.prompt-question {
   float: right;
-  margin-right: 10%;
-  @media only screen and (min-width: 1140px) {
-    float: none;
-    text-align: center;
-    margin-left: 925px;
-  }
+  margin-right: 15%;
+  margin-bottom: 0px;
   font-style: italic;
   font-size: 12px;
   color: gray;
 }
 
 div.time {
-  margin-left: 10%;
-  @media only screen and (min-width: 1140px) {
-    text-align: center;
-    margin-left: -760px;
-    margin-top: -18px;
-  }
+  margin-left: 15%;
 }
 
 textarea.form-control {
   color: #33ff00 !important;
   background-color: #282828 !important;
   border-color: #33ff00 !important;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-  @media only screen and (min-width: 1140px) {
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  font-size: 0.5rem;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 div.prompt-buttons {
   margin-top: 10px;
-  margin-left: 10%;
-  @media only screen and (min-width: 1140px) {
-    margin-top: -20px;
-    text-align: center;
-    margin-left: -635px;
-  }
+  margin-left: 15%;
 }
 
 button#prompt_submit {
@@ -156,17 +117,16 @@ button#prompt_report {
 p.char-counter {
   margin-top: 5px;
   float: right;
-  margin-right: 10%;
-  @media only screen and (min-width: 1140px) {
-    text-align: center;
-    float: none;
-    margin-left: 925px;
-  }
+  margin-right: 15%;
   margin-bottom: 0px;
 }
 
 audio {
   width: 300px;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #33ff00;
 }
 
 div.credits {
