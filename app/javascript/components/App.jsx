@@ -94,7 +94,7 @@ function App() {
 
   return (
     <div>
-      <h1 className="title">Welcome to Erotic Corpse</h1>
+      <h1 className="title">Welcome to Bawdy Electorate</h1>
       <h2 className="subtitle">a collaborative writing experience</h2>
       {renderedComponent}
       <div className="audio-player">
