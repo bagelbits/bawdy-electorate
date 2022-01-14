@@ -243,10 +243,10 @@ function EroticPrompt({ ticket, token }) {
         />
         <p className="char-counter">{charCounter}</p>
         <div className="prompt-buttons">
-          <Button variant="primary" id="prompt_submit" ref={submitEl} onClick={submitClicked}>
+          <Button id="prompt_submit" ref={submitEl} onClick={submitClicked}>
             Submit!
           </Button>
-          <Button variant="danger" id="prompt_report" ref={reportEl} onClick={openReportModal}>
+          <Button id="prompt_report" ref={reportEl} onClick={openReportModal}>
             Report!
           </Button>
         </div>

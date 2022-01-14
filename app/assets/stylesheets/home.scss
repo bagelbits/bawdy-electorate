@@ -4,25 +4,28 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 h1.title {
-  font-family: 'Homemade Apple', cursive;
+  font-family: 'Press Start 2P', cursive;
   text-align: center;
+  font-size: 1.8rem;
   padding-top: 25px;
   padding-bottom: 25px;
 }
 
 h2.subtitle {
-  font-family: 'Homemade Apple', cursive;
+  font-family: 'Press Start 2P', cursive;
   text-align: center;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   margin-top: -20px;
 }
 
 body {
-  font-family: 'Jost', sans-serif;
-  color: whitesmoke;
-  background-color: #545454;
+  font-family: 'Press Start 2P', cursive;
+  color: #33ff00;
+  background-color: #282828;
+  font-size: 0.8rem;
 }
 
 div.deli-counter {
@@ -42,17 +45,17 @@ audio {
 p.instructions {
   padding: 20px 0px 15px 0px;
   text-align: center;
-  width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 p.prompt {
-  border: thin solid whitesmoke;
-  margin-left: auto;
-  margin-right: auto;
+  border: thin solid #33ff00;
+  margin-left: 10%;
+  margin-right: 10%;
   border-radius: 10px;
-  width: 1100px;
+  width: 80%;
   text-align: center;
   padding: 10px 20px 10px 20px;
   font-size: 25px;
@@ -60,58 +63,70 @@ p.prompt {
 }
 
 p.story {
-  border: thin solid black;
-  margin-left: auto;
-  margin-right: auto;
+  border: thin solid #33ff00;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-bottom: 143px;
   border-radius: 10px;
-  width: 1100px;
+  width: 80%;
   text-align: center;
   padding: 10px 20px 10px 20px;
 }
 
 p.prompt-question {
-  text-align: center;
-  margin-left: 925px;
+  float: right;
+  margin-right: 15%;
+  margin-bottom: 0px;
   font-style: italic;
   font-size: 12px;
   color: gray;
 }
 
 div.time {
-  text-align: center;
-  margin-left: -760px;
-  margin-top: -18px;
+  margin-left: 15%;
 }
 
 textarea.form-control {
-  width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  color: #33ff00 !important;
+  background-color: #282828 !important;
+  border-color: #33ff00 !important;
+  font-size: 0.5rem;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 div.prompt-buttons {
-  text-align: center;
-  margin-top: -20px;
-  margin-left: -635px;
+  margin-top: 10px;
+  margin-left: 15%;
 }
 
 button#prompt_submit {
   margin-right: 10px;
+  color: #282828;
+  background-color: #33ff00;
+  border-color: #33ff00;
 }
 
 button#prompt_report {
+  color: #33ff00;
+  background-color: #282828;
+  border-color: #33ff00;
 }
 
 p.char-counter {
-  text-align: center;
   margin-top: 5px;
-  margin-left: 750px;
+  float: right;
+  margin-right: 15%;
   margin-bottom: 0px;
 }
 
 audio {
   width: 300px;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #33ff00;
 }
 
 div.credits {
