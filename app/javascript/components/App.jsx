@@ -95,7 +95,7 @@ function App() {
   return (
     <div>
       <h1 className="title">Welcome to Bawdy Electorate</h1>
-      <h2 className="subtitle">a collaborative writing experience</h2>
+      <h2 className="subtitle">brought to you by AIM</h2>
       {renderedComponent}
       <div className="audio-player">
         <p>Feel free to listen to Radio KTSK while you wait or write!</p>
