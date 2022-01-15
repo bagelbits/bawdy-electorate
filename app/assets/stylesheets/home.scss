@@ -35,11 +35,38 @@ div.deli-counter {
 
 div.audio-player {
   padding-top: 15px;
+  margin-top: 30px;
   text-align: center;
 }
 
 audio {
   width: 300px;
+}
+
+p.consent-page {
+  padding: 20px 0px 15px 0px;
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+div.consent-buttons {
+  margin-top: 10px;
+  text-align: center;
+}
+
+button#consent {
+  margin-right: 10px;
+  color: #282828;
+  background-color: #33ff00;
+  border-color: #33ff00;
+}
+
+button#leave {
+  color: #33ff00;
+  background-color: #282828;
+  border-color: #33ff00;
 }
 
 p.instructions {
@@ -119,10 +146,6 @@ p.char-counter {
   float: right;
   margin-right: 15%;
   margin-bottom: 0px;
-}
-
-audio {
-  width: 300px;
 }
 
 audio::-webkit-media-controls-panel {
