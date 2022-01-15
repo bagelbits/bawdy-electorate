@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 const ConsentPage = ({ setConsent }) => {
   return (
     <div>
-      <p className="consent-page">Insert consent text here.</p>
+      <p className="consent-page">
+        Bawdy Electorate contains erotic text and due to its content it should not be viewed by
+        anyone.
+      </p>
       <div className="consent-buttons">
         <Button
           id="consent"
