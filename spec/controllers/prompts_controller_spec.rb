@@ -11,6 +11,8 @@ RSpec.describe PromptsController do
 
       last_prompt = Prompt.find(last_prompt.id)
       expect(response.code).to eq('200')
+      expect(Word.find_by(word: 'lorem').count).to eq(1)
+      expect(Word.find_by(word: 'test').count).to eq(2)
       expect(JSON.parse(response.body)['id']).to eq(last_prompt.next_prompt)
     end
 
