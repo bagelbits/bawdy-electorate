@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe PromptsController do
   describe '#create' do
     it 'creates and links the prompts' do
       last_prompt = Prompt.create(prompt: 'This is a test')
       ticket = Ticket.create
-      post :create, params: { prompt: 'Lorem ipsum', previous_prompt_id: last_prompt.id, ticket: ticket.id, token: ticket.token }
+      post :create, params: { prompt: 'Lorem ipsum test', previous_prompt_id: last_prompt.id, ticket: ticket.id, token: ticket.token }
 
       last_prompt = Prompt.find(last_prompt.id)
       expect(response.code).to eq('200')
+      expect(Word.find_by(word: 'lorem').count).to eq(1)
+      expect(Word.find_by(word: 'test').count).to eq(2)
       expect(JSON.parse(response.body)['id']).to eq(last_prompt.next_prompt)
     end
 

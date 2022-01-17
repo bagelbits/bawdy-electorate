@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe DeliCounterController do
   describe '#ticket' do
     let(:ticket) { build(:ticket) }

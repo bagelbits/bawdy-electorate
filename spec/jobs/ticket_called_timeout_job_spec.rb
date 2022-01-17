@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe TicketCalledTimeoutJob, type: :job do
   let(:ticket) { Ticket.create }
 
