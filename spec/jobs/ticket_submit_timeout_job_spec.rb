@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe TicketSubmitTimeoutJob, type: :job do
+describe TicketSubmitTimeoutJob, type: :job do
   let(:ticket) { Ticket.create }
 
   before do

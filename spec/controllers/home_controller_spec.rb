@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe HomeController do
+describe HomeController do
   it 'renders the homepage' do
     get :index
     expect(response.code).to eq('200')

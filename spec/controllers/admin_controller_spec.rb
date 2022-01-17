@@ -2,7 +2,7 @@
 
 require 'support/auth_helper'
 
-RSpec.describe AdminController do
+describe AdminController do
   render_views
   include AuthHelper
 

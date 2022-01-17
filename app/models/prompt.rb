@@ -29,9 +29,15 @@ class Prompt < ApplicationRecord
   validate :validate_next_prompt
   validate :validate_reported
 
+  after_create :consume_prompt
+
   def report!
     self.reported = true
     save!
+  end
+
+  def consume_prompt
+    Word.consume_prompt(prompt)
   end
 
   private
