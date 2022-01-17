@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe PromptsController do
+describe PromptsController do
   describe '#create' do
     it 'creates and links the prompts' do
       last_prompt = create(:prompt, prompt: 'This is a test')

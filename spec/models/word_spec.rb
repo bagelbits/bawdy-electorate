@@ -1,19 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Word, type: :model do
-  describe '.for_client' do
-    let(:words) { create_list(:word, 3) }
-
-    it 'returns an array of hashes' do
-      words
-      for_client = described_class.for_client
-      expect(for_client).to be_an(Array)
-      expect(for_client.first).to be_a(Hash)
-      expect(for_client.first).to include(:word, :count)
-      expect(for_client.first).to include(word: words.first.word, count: words.first.count)
-    end
-  end
-
+describe Word, type: :model do
   describe '.consume_prompt' do
     it 'creates a new word if it does not exist' do
       prompt = 'This is a test.'

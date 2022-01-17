@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe DeliCounterController do
+describe DeliCounterController do
   describe '#ticket' do
     let(:ticket) { create(:ticket) }
     let(:now_serving_ticket) { create(:ticket) }

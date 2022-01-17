@@ -2,10 +2,6 @@ class Word < ApplicationRecord
   self.table_name = 'words'
 
   class << self
-    def for_client
-      Word.all.map(&:to_h)
-    end
-
     def consume_prompt(prompt)
       prompt.downcase.scan(/[\w'-]+/) do |word|
         word_obj = Word.find_by(word: word)

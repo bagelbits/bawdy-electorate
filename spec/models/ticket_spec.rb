@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Ticket, type: :model do
+describe Ticket, type: :model do
   describe '.create' do
     let(:ticket) { build(:ticket) }
 

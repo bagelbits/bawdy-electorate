@@ -22,5 +22,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :words do
+    collection do
+      get 'all_words'
+    end
+  end
+
   root 'home#index'
 end

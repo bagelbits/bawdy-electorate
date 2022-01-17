@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe 'Prompt' do
+describe 'Prompt' do
   let!(:root_prompt) { create(:prompt, id: 1, prompt: 'This is a test') }
 
   describe ':last_prompt' do
