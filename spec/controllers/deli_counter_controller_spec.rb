@@ -2,8 +2,8 @@
 
 RSpec.describe DeliCounterController do
   describe '#ticket' do
-    let(:ticket) { build(:ticket) }
-    let(:now_serving_ticket) { build(:ticket) }
+    let(:ticket) { create(:ticket) }
+    let(:now_serving_ticket) { create(:ticket) }
 
     before :each do
       ActiveJob::Base.queue_adapter = :test
@@ -37,8 +37,8 @@ RSpec.describe DeliCounterController do
   end
 
   describe '#now_serving' do
-    let(:ticket) { build(:ticket, checked_at: Time.now) }
-    let(:calling_ticket) { build(:ticket) }
+    let(:ticket) { create(:ticket, checked_at: Time.now) }
+    let(:calling_ticket) { create(:ticket) }
 
     before do
       allow(Ticket).to receive(:now_serving).and_return(ticket)
@@ -68,7 +68,7 @@ RSpec.describe DeliCounterController do
     end
 
     context 'when token does not match ticket' do
-      let(:fake_ticket) { build(:ticket, id: calling_ticket.id) }
+      let(:fake_ticket) { build(:ticket, id: calling_ticket.id, token: SecureRandom.uuid) }
 
       it 'does nothing' do
         allow(Ticket).to receive(:where).and_return([calling_ticket])
@@ -95,7 +95,11 @@ RSpec.describe DeliCounterController do
     end
 
     context 'when ticket is old' do
-      let(:ticket) { build(:ticket, checked_at: 20.seconds.ago) }
+      let(:ticket) { create(:ticket) }
+      before do
+        ticket.checked_at = 20.seconds.ago
+        ticket.save!
+      end
       it 'clears it out and gets a new ticket' do
         allow(Ticket).to receive(:where).and_return([calling_ticket])
         allow(TicketCalledTimeoutJob).to receive(:perform_now)
@@ -112,7 +116,7 @@ RSpec.describe DeliCounterController do
   end
 
   describe '#heartbeat' do
-    let(:ticket) { build(:ticket) }
+    let(:ticket) { create(:ticket) }
 
     it 'checks in the ticket' do
       allow(Ticket).to receive(:find).and_return(ticket)
@@ -127,7 +131,7 @@ RSpec.describe DeliCounterController do
     end
 
     context 'when ticket is closed' do
-      let(:ticket) { build(:ticket, status: Ticket::STATUSES[:closed]) }
+      let(:ticket) { create(:ticket, status: Ticket::STATUSES[:closed]) }
 
       it 'does nothing' do
         allow(Ticket).to receive(:find).and_return(ticket)

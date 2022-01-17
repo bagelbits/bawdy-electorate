@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe 'Prompt' do
   let!(:root_prompt) { Prompt.create(id: 1, prompt: 'This is a test') }
 

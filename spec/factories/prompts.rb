@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :ticket, class: Ticket do
+  factory :prompt, class: Prompt do
     sequence(:id)
-    token { SecureRandom.uuid }
+    prompt { 'This is a test' }
   end
 end
