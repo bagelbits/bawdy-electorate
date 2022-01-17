@@ -3,6 +3,7 @@
 RSpec.describe Ticket, type: :model do
   describe '.create' do
     let(:ticket) { build(:ticket) }
+
     context 'with token' do
       it 'is set on create' do
         expect(ticket.token).to eq(nil)
@@ -14,7 +15,7 @@ RSpec.describe Ticket, type: :model do
 
     context 'with checked_at' do
       it 'is set on create' do
-        time = Time.now.change(usec: 0)
+        time = Time.zone.now.change(usec: 0)
         allow(Time).to receive(:now).and_return(time)
         expect(ticket.checked_at).to eq(nil)
         ticket.save!
@@ -30,17 +31,17 @@ RSpec.describe Ticket, type: :model do
 
     it 'shows the next available ticket' do
       first_ticket.close!
-      expect(Ticket.now_serving).to eq(second_ticket)
+      expect(described_class.now_serving).to eq(second_ticket)
 
       second_ticket.skip!
-      expect(Ticket.now_serving).to eq(third_ticket)
+      expect(described_class.now_serving).to eq(third_ticket)
     end
 
     context 'when next available has responded' do
       it 'shows the next available ticket' do
         first_ticket.close!
         second_ticket.got_response!
-        expect(Ticket.now_serving).to eq(second_ticket)
+        expect(described_class.now_serving).to eq(second_ticket)
       end
     end
   end
@@ -49,8 +50,8 @@ RSpec.describe Ticket, type: :model do
     let(:ticket) { create(:ticket) }
 
     it 'updates checked_at' do
-      time_now = Time.now.change(usec: 0)
-      time_future = Time.now.change(usec: 0) + 5.minutes
+      time_now = Time.zone.now.change(usec: 0)
+      time_future = Time.zone.now.change(usec: 0) + 5.minutes
 
       allow(Time).to receive(:now).and_return(time_now)
       expect(ticket.checked_at).to eq(time_now)
