@@ -9,8 +9,8 @@ RSpec.describe TicketSubmitTimeoutJob, type: :job do
   end
 
   it 'will skip the ticket' do
-    expect(Ticket).to receive(:find).with(ticket.id)
-    expect(ticket).to receive(:skip!)
+    expect(Ticket).to have_received(:find).with(ticket.id)
+    expect(ticket).to have_received(:skip!)
     described_class.perform_now(ticket.id)
   end
 
@@ -18,8 +18,8 @@ RSpec.describe TicketSubmitTimeoutJob, type: :job do
     it 'will do nothing' do
       ticket.close!
 
-      expect(Ticket).to receive(:find).with(ticket.id)
-      expect(ticket).not_to receive(:skip!)
+      expect(Ticket).to have_received(:find).with(ticket.id)
+      expect(ticket).not_to have_received(:skip!)
       described_class.perform_now(ticket.id)
     end
   end

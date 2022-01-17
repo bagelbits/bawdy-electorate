@@ -9,8 +9,8 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
   end
 
   it 'will skip the ticket' do
-    expect(Ticket).to receive(:find).with(ticket.id)
-    expect(ticket).to receive(:skip!)
+    expect(Ticket).to have_received(:find).with(ticket.id)
+    expect(ticket).to have_received(:skip!)
     described_class.perform_now(ticket.id)
   end
 
@@ -19,8 +19,8 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
       ticket.status = Ticket::STATUSES[:responded]
       ticket.save!
 
-      expect(Ticket).to receive(:find).with(ticket.id)
-      expect(ticket).not_to receive(:skip!)
+      expect(Ticket).to have_received(:find).with(ticket.id)
+      expect(ticket).not_to have_received(:skip!)
       described_class.perform_now(ticket.id)
     end
   end
@@ -29,8 +29,8 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
     it 'will do nothing' do
       ticket.close!
 
-      expect(Ticket).to receive(:find).with(ticket.id)
-      expect(ticket).not_to receive(:skip!)
+      expect(Ticket).to have_received(:find).with(ticket.id)
+      expect(ticket).not_to have_received(:skip!)
       described_class.perform_now(ticket.id)
     end
   end
@@ -43,11 +43,11 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
     it 'will close them' do
       allow(Ticket).to receive(:where).and_return(abandoned_tickets)
       abandoned_tickets.each do |ticket|
-        expect(ticket).to receive(:skip!)
+        expect(ticket).to have_received(:skip!)
       end
 
-      expect(Ticket).to receive(:find).with(ticket.id)
-      expect(ticket).to receive(:skip!)
+      expect(Ticket).to have_received(:find).with(ticket.id)
+      expect(ticket).to have_received(:skip!)
       described_class.perform_now(ticket.id)
     end
   end

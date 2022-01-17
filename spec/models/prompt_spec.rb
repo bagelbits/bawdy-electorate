@@ -144,17 +144,19 @@ RSpec.describe 'Prompt' do
           first_prompt.save!
           first_prompt.next_prompt = third_prompt.id
           expect(first_prompt.valid?).to eq(false)
-          expect(first_prompt.errors.messages[:next_prompt]).to eq(['cannot be changed if already set and child prompt is not reported'])
+          expect(first_prompt.errors.messages[:next_prompt]).to eq(
+            ['cannot be changed if already set and child prompt is not reported']
+          )
         end
+      end
 
-        context 'when previous child prompt was reported' do
-          it 'is valid' do
-            first_prompt.next_prompt = second_prompt.id
-            first_prompt.save!
-            second_prompt.report!
-            first_prompt.next_prompt = third_prompt.id
-            expect(first_prompt.valid?).to eq(true)
-          end
+      context 'when next_prompt was already set and previous child prompt was reported' do
+        it 'is valid' do
+          first_prompt.next_prompt = second_prompt.id
+          first_prompt.save!
+          second_prompt.report!
+          first_prompt.next_prompt = third_prompt.id
+          expect(first_prompt.valid?).to eq(true)
         end
       end
     end
