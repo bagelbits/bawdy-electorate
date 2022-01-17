@@ -5,7 +5,9 @@ RSpec.describe PromptsController do
     it 'creates and links the prompts' do
       last_prompt = Prompt.create(prompt: 'This is a test')
       ticket = create(:ticket)
-      post :create, params: { prompt: 'Lorem ipsum test', previous_prompt_id: last_prompt.id, ticket: ticket.id, token: ticket.token }
+      post :create,
+           params: { prompt: 'Lorem ipsum test', previous_prompt_id: last_prompt.id, ticket: ticket.id,
+                     token: ticket.token, }
 
       last_prompt = Prompt.find(last_prompt.id)
       expect(response.code).to eq('200')
@@ -40,7 +42,8 @@ RSpec.describe PromptsController do
       it 'fails' do
         expect do
           post :create, params: { prompt: 'Lorem ipsum', ticket: 1, token: 'token' }
-        end.to raise_error(ActionController::ParameterMissing, 'param is missing or the value is empty: previous_prompt_id')
+        end.to raise_error(ActionController::ParameterMissing,
+                           'param is missing or the value is empty: previous_prompt_id')
       end
     end
   end
@@ -58,7 +61,7 @@ RSpec.describe PromptsController do
       [
         { prompt: first_prompt.prompt, reported: first_prompt.reported },
         { prompt: second_prompt.prompt, reported: second_prompt.reported },
-        { prompt: third_prompt.prompt, reported: third_prompt.reported }
+        { prompt: third_prompt.prompt, reported: third_prompt.reported },
       ]
     end
     let(:ticket) { create(:ticket) }
@@ -111,6 +114,7 @@ RSpec.describe PromptsController do
 
     context 'when token does not match ticket' do
       let(:fake_ticket) { build(:ticket, id: ticket.id, token: SecureRandom.uuid) }
+
       it 'returns nothing' do
         allow(Prompt).to receive(:full_story).and_return(full_story)
         allow(Ticket).to receive(:find).and_return(ticket)
@@ -131,7 +135,7 @@ RSpec.describe PromptsController do
     let(:prompt) { build(:prompt) }
     let(:ticket) { create(:ticket) }
 
-    before :each do
+    before do
       ActiveJob::Base.queue_adapter = :test
     end
 
@@ -173,6 +177,7 @@ RSpec.describe PromptsController do
 
     context 'when ticket is not being served' do
       let(:serving_ticket) { build(:ticket) }
+
       it 'does nothing' do
         allow(Prompt).to receive(:last_prompt).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)
@@ -193,6 +198,7 @@ RSpec.describe PromptsController do
 
     context 'when token does not match ticket' do
       let(:fake_ticket) { build(:ticket, id: ticket.id, token: SecureRandom.uuid) }
+
       it 'does nothing' do
         allow(Prompt).to receive(:last_prompt).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)
@@ -215,6 +221,7 @@ RSpec.describe PromptsController do
   describe '#report' do
     let(:prompt) { build(:prompt) }
     let(:ticket) { create(:ticket) }
+
     it 'marks prompt as reported' do
       allow(Prompt).to receive(:find).and_return(prompt)
       allow(Ticket).to receive(:find).and_return(ticket)
@@ -271,6 +278,7 @@ RSpec.describe PromptsController do
 
     context 'when ticket is not being served' do
       let(:serving_ticket) { build(:ticket) }
+
       it 'does nothing' do
         allow(Prompt).to receive(:find).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)
@@ -290,6 +298,7 @@ RSpec.describe PromptsController do
 
     context 'when token does not match ticket' do
       let(:fake_ticket) { build(:ticket, id: ticket.id, token: SecureRandom.uuid) }
+
       it 'does nothing' do
         allow(Prompt).to receive(:find).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)

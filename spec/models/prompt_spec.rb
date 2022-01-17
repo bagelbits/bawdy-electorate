@@ -58,7 +58,7 @@ RSpec.describe 'Prompt' do
       first_prompt.save!
       second_prompt.next_prompt = third_prompt.id
       second_prompt.save!
-      expect(Prompt.full_story.map { |p| p[:prompt] }).to eq(
+      expect(Prompt.full_story.pluck(:prompt)).to eq(
         expected_full_story
       )
     end
@@ -74,7 +74,7 @@ RSpec.describe 'Prompt' do
         third_prompt.report!
 
         full_story = Prompt.full_story
-        expect(full_story.map { |p| p[:prompt] }).to eq(
+        expect(full_story.pluck(:prompt)).to eq(
           expected_full_story
         )
         expect(full_story.last[:reported]).to eq(true)
@@ -85,6 +85,7 @@ RSpec.describe 'Prompt' do
   describe '#valid?' do
     describe '.prompt' do
       let(:prompt) { build(:prompt, prompt: nil) }
+
       it 'must have a prompt' do
         expect(prompt.valid?).to eq(false)
         expect(prompt.errors.messages[:prompt]).to eq(['can\'t be blank'])
@@ -137,6 +138,7 @@ RSpec.describe 'Prompt' do
 
       context 'when next_prompt was already set' do
         let(:third_prompt) { create(:prompt, prompt: 'This is a test') }
+
         it 'is invalid' do
           first_prompt.next_prompt = second_prompt.id
           first_prompt.save!

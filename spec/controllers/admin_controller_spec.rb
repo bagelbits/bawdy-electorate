@@ -8,7 +8,7 @@ RSpec.describe AdminController do
 
   describe 'index' do
     context 'with correct user/pass' do
-      before(:each) do
+      before do
         http_login
       end
 
@@ -24,11 +24,11 @@ RSpec.describe AdminController do
         [
           { prompt: first_prompt.prompt, reported: first_prompt.reported },
           { prompt: second_prompt.prompt, reported: second_prompt.reported },
-          { prompt: third_prompt.prompt, reported: third_prompt.reported }
+          { prompt: third_prompt.prompt, reported: third_prompt.reported },
         ]
       end
 
-      it 'should render' do
+      it 'renders' do
         allow(Prompt).to receive(:full_story).and_return(full_story)
         expect(Prompt).to receive(:full_story)
         get :index
@@ -37,11 +37,11 @@ RSpec.describe AdminController do
     end
 
     context 'with incorrect user/pass' do
-      before(:each) do
+      before do
         bad_http_login
       end
 
-      it 'should fail' do
+      it 'fails' do
         get :index
         expect(response.code).to eq('401')
         expect(response.body).to eq("HTTP Basic: Access denied.\n")

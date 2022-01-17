@@ -5,7 +5,7 @@ RSpec.describe DeliCounterController do
     let(:ticket) { create(:ticket) }
     let(:now_serving_ticket) { create(:ticket) }
 
-    before :each do
+    before do
       ActiveJob::Base.queue_adapter = :test
     end
 
@@ -37,7 +37,7 @@ RSpec.describe DeliCounterController do
   end
 
   describe '#now_serving' do
-    let(:ticket) { create(:ticket, checked_at: Time.now) }
+    let(:ticket) { create(:ticket, checked_at: Time.zone.now) }
     let(:calling_ticket) { create(:ticket) }
 
     before do
@@ -96,10 +96,12 @@ RSpec.describe DeliCounterController do
 
     context 'when ticket is old' do
       let(:ticket) { create(:ticket) }
+
       before do
         ticket.checked_at = 20.seconds.ago
         ticket.save!
       end
+
       it 'clears it out and gets a new ticket' do
         allow(Ticket).to receive(:where).and_return([calling_ticket])
         allow(TicketCalledTimeoutJob).to receive(:perform_now)

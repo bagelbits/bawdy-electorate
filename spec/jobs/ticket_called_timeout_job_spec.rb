@@ -3,7 +3,7 @@
 RSpec.describe TicketCalledTimeoutJob, type: :job do
   let(:ticket) { Ticket.create }
 
-  before :each do
+  before do
     allow(Ticket).to receive(:find).and_return(ticket)
     allow_any_instance_of(Ticket).to receive(:skip!)
   end
@@ -11,7 +11,7 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
   it 'will skip the ticket' do
     expect(Ticket).to receive(:find).with(ticket.id)
     expect(ticket).to receive(:skip!)
-    TicketCalledTimeoutJob.perform_now(ticket.id)
+    described_class.perform_now(ticket.id)
   end
 
   context 'when ticket responded' do
@@ -21,7 +21,7 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
 
       expect(Ticket).to receive(:find).with(ticket.id)
       expect(ticket).not_to receive(:skip!)
-      TicketCalledTimeoutJob.perform_now(ticket.id)
+      described_class.perform_now(ticket.id)
     end
   end
 
@@ -31,7 +31,7 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
 
       expect(Ticket).to receive(:find).with(ticket.id)
       expect(ticket).not_to receive(:skip!)
-      TicketCalledTimeoutJob.perform_now(ticket.id)
+      described_class.perform_now(ticket.id)
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
 
       expect(Ticket).to receive(:find).with(ticket.id)
       expect(ticket).to receive(:skip!)
-      TicketCalledTimeoutJob.perform_now(ticket.id)
+      described_class.perform_now(ticket.id)
     end
   end
 end
