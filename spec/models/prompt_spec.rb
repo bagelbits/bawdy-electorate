@@ -151,6 +151,8 @@ RSpec.describe 'Prompt' do
       end
 
       context 'when next_prompt was already set and previous child prompt was reported' do
+        let(:third_prompt) { create(:prompt, prompt: 'This is a test') }
+
         it 'is valid' do
           first_prompt.next_prompt = second_prompt.id
           first_prompt.save!

@@ -12,9 +12,9 @@ RSpec.describe DeliCounterController do
     it 'generates a ticket' do
       allow(Ticket).to receive(:create).and_return(ticket)
       allow(Ticket).to receive(:now_serving).and_return(now_serving_ticket)
-      expect(Ticket).to have_received(:create)
 
       post :ticket
+      expect(Ticket).to have_received(:create)
       expect(response.code).to eq('200')
       expect(JSON.parse(response.body)['ticket']).to eq(ticket.id)
       expect(JSON.parse(response.body)['token']).to eq(ticket.token)
@@ -25,9 +25,9 @@ RSpec.describe DeliCounterController do
       it 'also triggers ActiveJob' do
         allow(Ticket).to receive(:create).and_return(ticket)
         allow(Ticket).to receive(:now_serving).and_return(ticket)
-        expect(Ticket).to have_received(:create)
 
         post :ticket
+        expect(Ticket).to have_received(:create)
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)['ticket']).to eq(ticket.id)
         expect(JSON.parse(response.body)['token']).to eq(ticket.token)
@@ -46,11 +46,11 @@ RSpec.describe DeliCounterController do
 
     it 'gives the ticket now being served' do
       allow(Ticket).to receive(:where).and_return([calling_ticket])
-      expect(Ticket).to have_received(:now_serving)
-      expect(Ticket).to have_received(:where)
 
       post :now_serving, params: { ticket: calling_ticket.id, token: calling_ticket.token }
 
+      expect(Ticket).to have_received(:now_serving)
+      expect(Ticket).to have_received(:where)
       expect(response.code).to eq('200')
       expect(JSON.parse(response.body)['ticket']).to eq(ticket.id)
     end
@@ -58,10 +58,10 @@ RSpec.describe DeliCounterController do
     context 'when calling ticket does not exist' do
       it 'does nothing' do
         allow(Ticket).to receive(:where).and_return([])
-        expect(Ticket).to have_received(:where)
 
         post :now_serving, params: { ticket: calling_ticket.id, token: calling_ticket.token }
 
+        expect(Ticket).to have_received(:where)
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)).to eq({})
       end
@@ -72,10 +72,10 @@ RSpec.describe DeliCounterController do
 
       it 'does nothing' do
         allow(Ticket).to receive(:where).and_return([calling_ticket])
-        expect(Ticket).to have_received(:where)
 
         post :now_serving, params: { ticket: fake_ticket.id, token: fake_ticket.token }
 
+        expect(Ticket).to have_received(:where)
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)).to eq({})
       end
@@ -85,10 +85,9 @@ RSpec.describe DeliCounterController do
       let(:ticket) { nil }
 
       it 'does nothing' do
-        expect(Ticket).to have_received(:now_serving)
-
         post :now_serving, params: { ticket: calling_ticket.id, token: calling_ticket.token }
 
+        expect(Ticket).to have_received(:now_serving)
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)).to eq({})
       end
@@ -105,12 +104,12 @@ RSpec.describe DeliCounterController do
       it 'clears it out and gets a new ticket' do
         allow(Ticket).to receive(:where).and_return([calling_ticket])
         allow(TicketCalledTimeoutJob).to receive(:perform_now)
-        expect(Ticket).to have_received(:now_serving)
-        expect(Ticket).to have_received(:where)
-        expect(TicketCalledTimeoutJob).to have_received(:perform_now).with(ticket.id)
 
         post :now_serving, params: { ticket: calling_ticket.id, token: calling_ticket.token }
 
+        expect(TicketCalledTimeoutJob).to have_received(:perform_now).with(ticket.id)
+        expect(Ticket).to have_received(:now_serving).twice
+        expect(Ticket).to have_received(:where)
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)['ticket']).to eq(ticket.id)
       end
@@ -123,11 +122,11 @@ RSpec.describe DeliCounterController do
     it 'checks in the ticket' do
       allow(Ticket).to receive(:find).and_return(ticket)
       allow(ticket).to receive(:check_in!)
-      expect(Ticket).to have_received(:find)
-      expect(ticket).to have_received(:check_in!)
 
       post :heartbeat, params: { ticket: ticket.id, token: ticket.token }
 
+      expect(Ticket).to have_received(:find)
+      expect(ticket).to have_received(:check_in!)
       expect(response.code).to eq('200')
       expect(JSON.parse(response.body)['success']).to eq(true)
     end
@@ -138,11 +137,11 @@ RSpec.describe DeliCounterController do
       it 'does nothing' do
         allow(Ticket).to receive(:find).and_return(ticket)
         allow(ticket).to receive(:check_in!)
-        expect(Ticket).to have_received(:find)
-        expect(ticket).not_to have_received(:check_in!)
 
         post :heartbeat, params: { ticket: ticket.id, token: ticket.token }
 
+        expect(Ticket).to have_received(:find)
+        expect(ticket).not_to have_received(:check_in!)
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)['success']).to eq(false)
       end

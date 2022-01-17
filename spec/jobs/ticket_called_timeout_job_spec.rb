@@ -5,13 +5,13 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
 
   before do
     allow(Ticket).to receive(:find).and_return(ticket)
-    allow_any_instance_of(Ticket).to receive(:skip!)
+    allow(ticket).to receive(:skip!)
   end
 
   it 'will skip the ticket' do
+    described_class.perform_now(ticket.id)
     expect(Ticket).to have_received(:find).with(ticket.id)
     expect(ticket).to have_received(:skip!)
-    described_class.perform_now(ticket.id)
   end
 
   context 'when ticket responded' do
@@ -19,9 +19,9 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
       ticket.status = Ticket::STATUSES[:responded]
       ticket.save!
 
+      described_class.perform_now(ticket.id)
       expect(Ticket).to have_received(:find).with(ticket.id)
       expect(ticket).not_to have_received(:skip!)
-      described_class.perform_now(ticket.id)
     end
   end
 
@@ -29,9 +29,9 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
     it 'will do nothing' do
       ticket.close!
 
+      described_class.perform_now(ticket.id)
       expect(Ticket).to have_received(:find).with(ticket.id)
       expect(ticket).not_to have_received(:skip!)
-      described_class.perform_now(ticket.id)
     end
   end
 
@@ -40,15 +40,18 @@ RSpec.describe TicketCalledTimeoutJob, type: :job do
     let(:abandoned_ticket_2) { Ticket.create(checked_at: 1.minute.ago) }
     let(:abandoned_tickets) { [abandoned_ticket_1, abandoned_ticket_2] }
 
+    before do
+      allow(abandoned_ticket_1).to receive(:skip!)
+      allow(abandoned_ticket_2).to receive(:skip!)
+    end
+
     it 'will close them' do
       allow(Ticket).to receive(:where).and_return(abandoned_tickets)
-      abandoned_tickets.each do |ticket|
-        expect(ticket).to have_received(:skip!)
-      end
+      described_class.perform_now(ticket.id)
 
+      expect(abandoned_tickets).to all(have_received(:skip!))
       expect(Ticket).to have_received(:find).with(ticket.id)
       expect(ticket).to have_received(:skip!)
-      described_class.perform_now(ticket.id)
     end
   end
 end

@@ -3,7 +3,7 @@
 RSpec.describe PromptsController do
   describe '#create' do
     it 'creates and links the prompts' do
-      last_prompt = Prompt.create(prompt: 'This is a test')
+      last_prompt = create(:prompt, prompt: 'This is a test')
       ticket = create(:ticket)
       post :create,
            params: { prompt: 'Lorem ipsum test', previous_prompt_id: last_prompt.id, ticket: ticket.id,
@@ -71,13 +71,13 @@ RSpec.describe PromptsController do
       allow(Ticket).to receive(:find).and_return(ticket)
       allow(ticket).to receive(:closed?).and_return(true)
 
-      expect(Ticket).to have_received(:find)
-      expect(ticket).to have_received(:closed?)
-      expect(Prompt).to have_received(:full_story)
-
       get :story, params: { ticket: ticket.id, token: ticket.token }
       expect(response.code).to eq('200')
       expect(JSON.parse(response.body)['full_story']).to eq(full_story.map(&:stringify_keys))
+
+      expect(Ticket).to have_received(:find)
+      expect(ticket).to have_received(:closed?)
+      expect(Prompt).to have_received(:full_story)
     end
 
     context 'with missing ticket' do
@@ -102,13 +102,13 @@ RSpec.describe PromptsController do
         allow(Ticket).to receive(:find).and_return(ticket)
         allow(ticket).to receive(:closed?).and_return(false)
 
-        expect(Ticket).to have_received(:find)
-        expect(ticket).to have_received(:closed?)
-        expect(Prompt).not_to have_received(:full_story)
-
         get :story, params: { ticket: ticket.id, token: ticket.token }
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)).to eq({})
+
+        expect(Ticket).to have_received(:find)
+        expect(ticket).to have_received(:closed?)
+        expect(Prompt).not_to have_received(:full_story)
       end
     end
 
@@ -120,13 +120,13 @@ RSpec.describe PromptsController do
         allow(Ticket).to receive(:find).and_return(ticket)
         allow(ticket).to receive(:closed?).and_return(true)
 
-        expect(Ticket).to have_received(:find)
-        expect(ticket).to have_received(:closed?)
-        expect(Prompt).not_to have_received(:full_story)
-
         get :story, params: { ticket: ticket.id, token: fake_ticket.token }
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)).to eq({})
+
+        expect(Ticket).to have_received(:find)
+        expect(ticket).to have_received(:closed?)
+        expect(Prompt).not_to have_received(:full_story)
       end
     end
   end
@@ -143,18 +143,18 @@ RSpec.describe PromptsController do
       allow(Prompt).to receive(:last_prompt).and_return(prompt)
       allow(Ticket).to receive(:find).and_return(ticket)
       allow(Ticket).to receive(:now_serving).and_return(ticket)
-      allow_any_instance_of(Ticket).to receive(:got_response!)
-      allow_any_instance_of(Ticket).to receive(:check_in!)
-
-      expect(Prompt).to have_received(:last_prompt)
-      expect(Ticket).to have_received(:find)
-      expect(ticket).to have_received(:got_response!)
-      expect(ticket).to have_received(:check_in!)
+      allow(ticket).to receive(:got_response!)
+      allow(ticket).to receive(:check_in!)
 
       get :last, params: { ticket: ticket.id, token: ticket.token }
       expect(response.code).to eq('200')
       expect(JSON.parse(response.body)['id']).to eq(prompt.id)
       expect(TicketSubmitTimeoutJob).to have_been_enqueued.with(ticket.id)
+
+      expect(Prompt).to have_received(:last_prompt)
+      expect(Ticket).to have_received(:find)
+      expect(ticket).to have_received(:got_response!)
+      expect(ticket).to have_received(:check_in!)
     end
 
     context 'with missing ticket' do
@@ -182,17 +182,17 @@ RSpec.describe PromptsController do
         allow(Prompt).to receive(:last_prompt).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)
         allow(Ticket).to receive(:now_serving).and_return(serving_ticket)
-        allow_any_instance_of(Ticket).to receive(:got_response!)
-        allow_any_instance_of(Ticket).to receive(:check_in!)
+        allow(ticket).to receive(:got_response!)
+        allow(ticket).to receive(:check_in!)
+
+        get :last, params: { ticket: ticket.id, token: ticket.token }
+        expect(response.code).to eq('200')
+        expect(JSON.parse(response.body)).to eq({})
 
         expect(Ticket).to have_received(:find)
         expect(Prompt).not_to have_received(:last_prompt)
         expect(ticket).not_to have_received(:got_response!)
         expect(ticket).not_to have_received(:check_in!)
-
-        get :last, params: { ticket: ticket.id, token: ticket.token }
-        expect(response.code).to eq('200')
-        expect(JSON.parse(response.body)).to eq({})
       end
     end
 
@@ -203,17 +203,17 @@ RSpec.describe PromptsController do
         allow(Prompt).to receive(:last_prompt).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)
         allow(Ticket).to receive(:now_serving).and_return(ticket)
-        allow_any_instance_of(Ticket).to receive(:got_response!)
-        allow_any_instance_of(Ticket).to receive(:check_in!)
+        allow(ticket).to receive(:got_response!)
+        allow(ticket).to receive(:check_in!)
+
+        get :last, params: { ticket: fake_ticket.id, token: fake_ticket.token }
+        expect(response.code).to eq('200')
+        expect(JSON.parse(response.body)).to eq({})
 
         expect(Ticket).to have_received(:find)
         expect(Prompt).not_to have_received(:last_prompt)
         expect(ticket).not_to have_received(:got_response!)
         expect(ticket).not_to have_received(:check_in!)
-
-        get :last, params: { ticket: fake_ticket.id, token: fake_ticket.token }
-        expect(response.code).to eq('200')
-        expect(JSON.parse(response.body)).to eq({})
       end
     end
   end
@@ -226,16 +226,17 @@ RSpec.describe PromptsController do
       allow(Prompt).to receive(:find).and_return(prompt)
       allow(Ticket).to receive(:find).and_return(ticket)
       allow(Ticket).to receive(:now_serving).and_return(ticket)
-      allow_any_instance_of(Prompt).to receive(:report!)
+      allow(prompt).to receive(:report!)
 
-      expect(Ticket).to have_received(:find)
-      expect(Ticket).to have_received(:now_serving)
-      expect(prompt).to have_received(:report!)
       post :report, params: { id: 2, ticket: ticket.id, token: ticket.token }
 
       expect(response.code).to eq('200')
       expect(JSON.parse(response.body)['success']).to eq(true)
       expect(JSON.parse(response.body)['error']).to eq('')
+
+      expect(Ticket).to have_received(:find)
+      expect(Ticket).to have_received(:now_serving)
+      expect(prompt).to have_received(:report!)
     end
 
     context 'with ActiveRecord::RecordInvalid' do
@@ -246,10 +247,6 @@ RSpec.describe PromptsController do
         allow(prompt).to receive(:report!).and_raise(
           ActiveRecord::RecordInvalid
         )
-
-        expect(Ticket).to have_received(:find)
-        expect(Ticket).to have_received(:now_serving)
-        expect(prompt).to have_received(:report!)
         post :report, params: { id: 2, ticket: ticket.id, token: ticket.token }
 
         expect(response.code).to eq('200')
@@ -257,6 +254,10 @@ RSpec.describe PromptsController do
         expect(JSON.parse(response.body)['error']).to eq(
           "Unfortunately, we can't roll back the story anymore. Sorry for the inconvience."
         )
+
+        expect(Ticket).to have_received(:find)
+        expect(Ticket).to have_received(:now_serving)
+        expect(prompt).to have_received(:report!)
       end
     end
 
@@ -283,16 +284,16 @@ RSpec.describe PromptsController do
         allow(Prompt).to receive(:find).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)
         allow(Ticket).to receive(:now_serving).and_return(serving_ticket)
-        allow_any_instance_of(Prompt).to receive(:report!)
-
-        expect(Ticket).to have_received(:find)
-        expect(Ticket).to have_received(:now_serving)
-        expect(prompt).not_to have_received(:report!)
+        allow(prompt).to receive(:report!)
         post :report, params: { id: 2, ticket: ticket.id, token: ticket.token }
 
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)['success']).to eq(false)
         expect(JSON.parse(response.body)['error']).to eq("Unfortunately, you shouldn't have that ticket")
+
+        expect(Ticket).to have_received(:find)
+        expect(Ticket).to have_received(:now_serving)
+        expect(prompt).not_to have_received(:report!)
       end
     end
 
@@ -303,16 +304,16 @@ RSpec.describe PromptsController do
         allow(Prompt).to receive(:find).and_return(prompt)
         allow(Ticket).to receive(:find).and_return(ticket)
         allow(Ticket).to receive(:now_serving).and_return(ticket)
-        allow_any_instance_of(Prompt).to receive(:report!)
-
-        expect(Ticket).to have_received(:find)
-        expect(Ticket).to have_received(:now_serving)
-        expect(prompt).not_to have_received(:report!)
+        allow(prompt).to receive(:report!)
         post :report, params: { id: 2, ticket: fake_ticket.id, token: fake_ticket.token }
 
         expect(response.code).to eq('200')
         expect(JSON.parse(response.body)['success']).to eq(false)
         expect(JSON.parse(response.body)['error']).to eq("Unfortunately, you shouldn't have that ticket")
+
+        expect(Ticket).to have_received(:find)
+        expect(Ticket).to have_received(:now_serving)
+        expect(prompt).not_to have_received(:report!)
       end
     end
   end

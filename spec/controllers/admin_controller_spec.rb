@@ -30,9 +30,9 @@ RSpec.describe AdminController do
 
       it 'renders' do
         allow(Prompt).to receive(:full_story).and_return(full_story)
-        expect(Prompt).to have_received(:full_story)
         get :index
         expect(response.code).to eq('200')
+        expect(Prompt).to have_received(:full_story)
       end
     end
 
