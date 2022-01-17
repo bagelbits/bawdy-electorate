@@ -1,25 +1,14 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe Ticket, type: :model do
   describe '.create' do
-    let(:ticket) { Ticket.new }
+    let(:ticket) { build(:ticket) }
     context 'with token' do
       it 'is set on create' do
         expect(ticket.token).to eq(nil)
 
         ticket.save!
         expect(ticket.token).not_to eq(nil)
-      end
-    end
-
-    context 'with status' do
-      it 'is set on create' do
-        expect(ticket.status).to eq(nil)
-
-        ticket.save!
-        expect(ticket.status).to eq(Ticket::STATUSES[:open])
       end
     end
 
@@ -35,9 +24,9 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '.now_serving' do
-    let!(:first_ticket) { Ticket.create }
-    let!(:second_ticket) { Ticket.create }
-    let!(:third_ticket) { Ticket.create }
+    let!(:first_ticket) { create(:ticket) }
+    let!(:second_ticket) { create(:ticket) }
+    let!(:third_ticket) { create(:ticket) }
 
     it 'shows the next available ticket' do
       first_ticket.close!
@@ -57,7 +46,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '#check_in!' do
-    let(:ticket) { Ticket.create }
+    let(:ticket) { create(:ticket) }
 
     it 'updates checked_at' do
       time_now = Time.now.change(usec: 0)
@@ -72,7 +61,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '#skip!' do
-    let(:ticket) { Ticket.create }
+    let(:ticket) { create(:ticket) }
 
     it 'is set as skipped' do
       ticket.skip!
@@ -83,7 +72,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '#got_response!' do
-    let(:ticket) { Ticket.create }
+    let(:ticket) { create(:ticket) }
 
     it 'is set as responded' do
       ticket.got_response!
@@ -94,7 +83,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '#close!' do
-    let(:ticket) { Ticket.create }
+    let(:ticket) { create(:ticket) }
 
     it 'is set as skipped' do
       ticket.close!
@@ -105,7 +94,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '#responded?' do
-    let(:ticket) { Ticket.create }
+    let(:ticket) { create(:ticket) }
 
     context 'when status is set to responded' do
       it 'is true' do
@@ -124,7 +113,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '#closed?' do
-    let(:ticket) { Ticket.create }
+    let(:ticket) { create(:ticket) }
 
     context 'when status is set to closed' do
       it 'is true' do
@@ -143,7 +132,7 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe '#submitted?' do
-    let(:ticket) { Ticket.create }
+    let(:ticket) { create(:ticket) }
 
     context 'when closure_code is set to submitted' do
       it 'is true' do
