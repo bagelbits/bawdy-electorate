@@ -6,8 +6,15 @@ const ConsentPage = ({ setConsent }) => {
   return (
     <div>
       <p className="consent-page">
-        Bawdy Electorate contains erotic text and due to its content it should not be viewed by
-        anyone.
+        You&apos;re about to embark on a (potentially) sexy journey. By continuing, you understand
+        that you will see written content of a graphic sexual nature. The content is written by
+        users, and we cannot take responsibility for it. By continuing, you also agree not to engage
+        in hate speech of any kind. No racist, misogynistic, homophobic, transphobic, ageist,
+        ableist, etc language. Don&apos;t yuck someone&apos;s yum. If you see something that goes
+        against these guidelines, report it.
+        <br />
+        <br />
+        Continue?
       </p>
       <div className="consent-buttons">
         <Button
@@ -16,7 +23,7 @@ const ConsentPage = ({ setConsent }) => {
             setConsent(true);
           }}
         >
-          I consent to this!
+          Hell yes!
         </Button>
         <Button
           id="leave"
@@ -24,7 +31,7 @@ const ConsentPage = ({ setConsent }) => {
             window.location.href = 'about:blank';
           }}
         >
-          Get me out of here!
+          Not today, Satan
         </Button>
       </div>
 
