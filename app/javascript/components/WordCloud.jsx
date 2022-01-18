@@ -40,11 +40,7 @@ function WordCloud() {
     renderedComponent = <p>Something went terribly wrong.</p>;
   } else {
     const options = { rotations: [0], enableTooltip: true, fontSizes: [12, 60], scale: 'sqrt' };
-    renderedComponent = (
-      <div id="word-cloud" style={{ height: 400, width: 600 }}>
-        <ReactWordcloud words={result} options={options} />
-      </div>
-    );
+    renderedComponent = <ReactWordcloud words={result} options={options} />;
   }
 
   return <div>{renderedComponent}</div>;
