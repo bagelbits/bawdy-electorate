@@ -22,8 +22,8 @@ describe Word, type: :model do
 
     it 'returns a hash' do
       expect(word.to_h).to be_a(Hash)
-      expect(word.to_h).to include(:word, :count)
-      expect(word.to_h).to include(word: word.word, count: word.count)
+      expect(word.to_h).to include(:text, :value)
+      expect(word.to_h).to include(text: word.word, value: word.count)
     end
   end
 end

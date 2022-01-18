@@ -20,8 +20,8 @@ class Word < ApplicationRecord
 
   def to_h
     {
-      word: word,
-      count: count,
+      text: word,
+      value: count,
     }
   end
 end

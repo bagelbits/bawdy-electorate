@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   resources :words do
     collection do
-      get 'all_words'
+      get 'cloud'
     end
   end
 
