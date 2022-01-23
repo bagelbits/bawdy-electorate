@@ -39,8 +39,24 @@ function WordCloud() {
   } else if (loading === 'null') {
     renderedComponent = <p>Something went terribly wrong.</p>;
   } else {
-    const options = { rotations: [0], enableTooltip: true, fontSizes: [12, 60], scale: 'sqrt' };
-    renderedComponent = <ReactWordcloud words={result} options={options} />;
+    const options = {
+      colors: ['#000000'],
+      fontFamily: 'Silom',
+      rotations: [0],
+      enableTooltip: false,
+      fontSizes: [12, 60],
+      scale: 'sqrt',
+    };
+    renderedComponent = (
+      <div>
+        <p>
+          Help us sell our user&apos;s data!
+          <br />
+          Tell the biggest word to Donor Registration and be rewarded for your efforts!
+        </p>
+        <ReactWordcloud words={result} options={options} />
+      </div>
+    );
   }
 
   return <div>{renderedComponent}</div>;
