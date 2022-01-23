@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
 const ConsentPage = ({ setConsent }) => {
+  const eyeLink = document.querySelector("meta[name='eye']").getAttribute('content');
   return (
     <div>
       <p className="consent-page">
@@ -34,15 +35,9 @@ const ConsentPage = ({ setConsent }) => {
           Not today, Satan
         </Button>
       </div>
-
-      <div className="credits">
-        <h1 className="credit-title">Credits</h1>
-        <p className="credit">Designed by Caitlyn Kilgore and Chris Ward</p>
-        <p className="credit">Created by Chris Ward</p>
-        <p className="credit">
-          &quot;Bell, Counter, A.wav&quot; by InspectorJ (www.jshaw.co.uk) of Freesound.org
-        </p>
-      </div>
+      <a href="/words/cloud">
+        <img id="eye" src={eyeLink} alt="eye" />
+      </a>
     </div>
   );
 };

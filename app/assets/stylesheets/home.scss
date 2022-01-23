@@ -67,6 +67,15 @@ button#leave {
   border-color: #33ff00;
 }
 
+img#eye {
+  filter: invert(60%);
+  display: block;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50px;
+}
+
 p.instructions {
   padding: 20px 0px 15px 0px;
   text-align: center;
