@@ -41,7 +41,7 @@ function WordCloud() {
   } else {
     const options = {
       colors: ['#000000'],
-      fontFamily: 'Silom',
+      fontFamily: 'Fyodor',
       rotations: [0],
       enableTooltip: false,
       fontSizes: [12, 60],

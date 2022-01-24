@@ -1,12 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@font-face {
+  font-family: 'Fyodor';
+  src: url('fyodor.bold-condensed.ttf');
+}
 
 body {
-  font-family: 'Silom';
+  font-family: 'Fyodor';
   color: black;
   background-color: #FAE500;
 }
 
 p {
   margin-top: 20px;
+  font-size: 2rem;
   text-align: center;
 }
