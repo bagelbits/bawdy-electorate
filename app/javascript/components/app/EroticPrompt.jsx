@@ -190,6 +190,7 @@ function EroticPrompt({ ticket, token }) {
   };
 
   const soundLink = document.querySelector("meta[name='bell-sound']").getAttribute('content');
+  const eyeLink = document.querySelector("meta[name='eye']").getAttribute('content');
 
   const turnOffSound = () => {
     setSoundPlayed(true);
@@ -267,6 +268,9 @@ function EroticPrompt({ ticket, token }) {
       <div>
         <h2 className="thank-you">Thank you for playing~!</h2>
         <p className="story">{printStory(fullStory)}</p>
+        <a href="/words/cloud">
+          <img id="eye" src={eyeLink} alt="eye" />
+        </a>
       </div>
     );
   }

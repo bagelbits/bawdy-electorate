@@ -2,8 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 h1.title {
@@ -69,6 +67,15 @@ button#leave {
   border-color: #33ff00;
 }
 
+img#eye {
+  filter: invert(60%);
+  display: block;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50px;
+}
+
 p.instructions {
   padding: 20px 0px 15px 0px;
   text-align: center;
@@ -81,7 +88,6 @@ p.prompt {
   border: thin solid #33ff00;
   margin-left: 10%;
   margin-right: 10%;
-  border-radius: 10px;
   width: 80%;
   text-align: center;
   padding: 10px 20px 10px 20px;
@@ -94,7 +100,6 @@ p.story {
   margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 143px;
-  border-radius: 10px;
   width: 80%;
   text-align: center;
   padding: 10px 20px 10px 20px;
@@ -117,6 +122,7 @@ textarea.form-control {
   color: #33ff00 !important;
   background-color: #282828 !important;
   border-color: #33ff00 !important;
+  border-radius: 0px;
   font-size: 0.5rem;
   width: 70%;
   margin-left: 15%;

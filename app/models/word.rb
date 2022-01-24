@@ -1,6 +1,8 @@
 class Word < ApplicationRecord
   self.table_name = 'words'
 
+  WORD_OF_THE_DAY = 'tentacle'.freeze
+
   class << self
     def consume_prompt(prompt)
       prompt.downcase.scan(/[\w'-]+/) do |word|
@@ -20,8 +22,8 @@ class Word < ApplicationRecord
 
   def to_h
     {
-      word: word,
-      count: count,
+      text: word,
+      value: count,
     }
   end
 end

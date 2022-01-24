@@ -1,5 +1,3 @@
 class HomeController < ApplicationController
-  def index
-    render component: 'App'
-  end
+  def index; end
 end
