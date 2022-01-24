@@ -44,7 +44,7 @@ function WordCloud() {
       fontFamily: 'Fyodor',
       rotations: [0],
       enableTooltip: false,
-      fontSizes: [12, 60],
+      fontSizes: [14, 60],
       scale: 'sqrt',
     };
     renderedComponent = (
