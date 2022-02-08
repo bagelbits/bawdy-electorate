@@ -227,6 +227,9 @@ function EroticPrompt({ ticket, token }) {
         </p>
         <p className="prompt"> {result.prompt} </p>
         <p className="prompt-question">What happens next?</p>
+        <Button id="prompt_report" ref={reportEl} onClick={openReportModal}>
+          Report!
+        </Button>
         <CountdownTimer
           isActive
           date={countdownTime}
@@ -243,14 +246,9 @@ function EroticPrompt({ ticket, token }) {
           onChange={updateCharCountdown}
         />
         <p className="char-counter">{charCounter}</p>
-        <div className="prompt-buttons">
-          <Button id="prompt_submit" ref={submitEl} onClick={submitClicked}>
-            Submit!
-          </Button>
-          <Button id="prompt_report" ref={reportEl} onClick={openReportModal}>
-            Report!
-          </Button>
-        </div>
+        <Button id="prompt_submit" ref={submitEl} onClick={submitClicked}>
+          Submit!
+        </Button>
 
         <ReportModal
           open={reportModalOpen}

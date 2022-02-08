@@ -68,12 +68,12 @@ button#leave {
 }
 
 img#eye {
-  filter: invert(60%);
+  filter: invert(70%);
   display: block;
   margin-top: 25px;
   margin-left: auto;
   margin-right: auto;
-  width: 50px;
+  width: 8%;
 }
 
 p.instructions {
@@ -106,8 +106,7 @@ p.story {
 }
 
 p.prompt-question {
-  float: right;
-  margin-right: 15%;
+  text-align: center;
   margin-bottom: 0px;
   font-style: italic;
   font-size: 12px;
@@ -135,6 +134,8 @@ div.prompt-buttons {
 }
 
 button#prompt_submit {
+  margin-top: 10px;
+  margin-left: 15%;
   margin-right: 10px;
   color: #282828;
   background-color: #33ff00;
@@ -142,6 +143,9 @@ button#prompt_submit {
 }
 
 button#prompt_report {
+  float: right;
+  margin-right: 10%;
+  margin-top: -26px;
   color: #33ff00;
   background-color: #282828;
   border-color: #33ff00;
