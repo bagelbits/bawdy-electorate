@@ -21,8 +21,8 @@ function getTicket(consent) {
           },
         });
         const json = await response.json();
-        setResult(json);
         setLoading('true');
+        setResult(json);
       } catch (error) {
         setLoading('null');
       }
@@ -94,9 +94,9 @@ function App() {
     renderedComponent = <ConsentPage setConsent={setConsent} />;
   } else if (consent === true) {
     if (loading === 'false') {
-      renderedComponent = <p>Loading...</p>;
+      renderedComponent = <p className="loading">Loading...</p>;
     } else if (loading === 'null') {
-      renderedComponent = <p>Something went terribly wrong.</p>;
+      renderedComponent = <p className="error">Something went terribly wrong.</p>;
     } else if (result.ticket !== nowServing) {
       renderedComponent = (
         <DeliCounter ticket={result.ticket} token={result.token} nowServing={nowServing} />
